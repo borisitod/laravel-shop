@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class UserAddress extends Model
 {
     protected $fillable = [
-        'state',
+        'province',
         'city',
+        'district',
         'address',
-        'postcode',
+        'zip',
         'contact_name',
         'contact_phone',
         'last_used_at',
@@ -20,5 +21,10 @@ class UserAddress extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function getFullAddressAttribute()
+    {
+        return "{$this->province}{$this->city}{$this->district}{$this->address}";
     }
 }
